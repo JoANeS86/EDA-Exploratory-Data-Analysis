@@ -71,6 +71,13 @@ Then I could put together all those metrics to generate a report containing the 
 <img src="https://github.com/user-attachments/assets/21bbce20-aaed-4f36-8795-951932a9e001" />
 </p>
 
+### 5. Magnitude
+
+Compare the measure values by categories, to get more insights about the business and better understand the differences between these categories.
+
+### 6. Ranking Analysis
+
+Order the values of dimensions by measure (Top N / Bottom N).
 
 
 
