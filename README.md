@@ -78,30 +78,3 @@ Compare the measure values by categories, to get more insights about the busines
 ### 6. Ranking Analysis
 
 Order the values of dimensions by measure (Top N / Bottom N).
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
