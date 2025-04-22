@@ -126,3 +126,19 @@ Or the moving average:
 <p align="center">
 <img src="https://github.com/user-attachments/assets/12b20162-6378-40ac-be51-8cdc55d4f3b7" />
 </p>
+
+### 3. Performance Analysis
+
+The process of comparing the current value with a target value, to measure the success and compare the performance.
+
+
+
+
+
+
+
+
+
+
+
+
