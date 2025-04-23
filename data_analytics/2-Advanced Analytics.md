@@ -131,6 +131,60 @@ Or the moving average:
 
 The process of comparing the current value with a target value, to measure the success and compare the performance.
 
+For example, I could analyze the yearly performance of products by comparing their sales to both the average sales performance of the product and
+the previous year's sales:
+
+    WITH sales_per_year AS
+    (
+    SELECT
+        YEAR(s.order_date) order_year,
+        p.product_name,
+        SUM(s.sales_amount) current_sales	
+    FROM Gold.fact_sales s LEFT JOIN Gold.dim_products p
+    ON s.product_key = p.product_key
+    WHERE s.order_date IS NOT NULL
+    GROUP BY YEAR(s.order_date), p.product_name
+    )
+    SELECT
+        order_year,
+        product_name,
+        current_sales,
+        AVG(current_sales) OVER(PARTITION BY product_name) average_sales,
+        current_sales - AVG(current_sales) OVER(PARTITION BY product_name) AS diff_avg,
+        CASE WHEN current_sales - AVG(current_sales) OVER(PARTITION BY product_name) > 0 THEN 'Above Average'
+             WHEN current_sales - AVG(current_sales) OVER(PARTITION BY product_name) < 0 THEN 'Below Average'
+             ELSE 'Avg'
+        END average_change,
+        -- Year-Over-Year Analysis
+        LAG(current_sales) OVER(PARTITION BY product_name ORDER BY order_year) py_sales,
+        current_sales - LAG(current_sales) OVER(PARTITION BY product_name ORDER BY order_year) diff_py,
+        CASE WHEN current_sales - LAG(current_sales) OVER(PARTITION BY product_name ORDER BY order_year) > 0 THEN 'Increase'
+             WHEN current_sales - LAG(current_sales) OVER(PARTITION BY product_name ORDER BY order_year) < 0 THEN 'Decrease'
+             ELSE 'No Change'
+        END py_change
+    FROM sales_per_year
+
+<p align="center">
+<img src="https://github.com/user-attachments/assets/0bce2444-b38e-499d-a44f-adccc72b39a7" />
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
