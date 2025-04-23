@@ -168,31 +168,7 @@ the previous year's sales:
 <img src="https://github.com/user-attachments/assets/0bce2444-b38e-499d-a44f-adccc72b39a7" />
 </p>
 
+Regarding the Year-Over-Year Analysis section, I could check instead the Month-Over-Month scenario by just changing function YEAR for MONTH.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+YOY is good for long term trends analysis, while MOM is short term trend analysis (focus on the seasonality of the data).
 
