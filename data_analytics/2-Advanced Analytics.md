@@ -172,3 +172,36 @@ Regarding the Year-Over-Year Analysis section, I could check instead the Month-O
 
 YOY is good for long term trends analysis, while MOM is short term trend analysis (focus on the seasonality of the data).
 
+### 4. Part-To-Whole Analysis
+
+Analyze how an individual part is performing compared to the overall, allowing us to understand which category has the greatest impact on the
+business.
+
+For example, identify the categories that contribute the most to overall sales:
+
+    WITH category_sales AS
+    (
+    SELECT
+        p.category,
+        SUM(s.sales_amount) total_sales
+    FROM Gold.fact_sales s LEFT JOIN Gold.dim_products p
+    ON s.product_key = p.product_key
+    GROUP BY p.category
+    )
+    
+    SELECT
+        category,
+        total_sales,
+        SUM(total_sales) OVER() overall_sales,
+        CONCAT(ROUND((CAST(total_sales AS FLOAT) / SUM(total_sales) OVER()) * 100, 2), '%') percentage_of_total
+    FROM category_sales
+    ORDER BY total_sales DESC
+
+<p align="center">
+<img src="https://github.com/user-attachments/assets/87732301-d549-49b7-8bc2-238aac5505ed" />
+</p>
+
+
+
+
+
