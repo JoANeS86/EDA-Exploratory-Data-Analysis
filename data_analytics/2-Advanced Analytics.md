@@ -201,6 +201,48 @@ For example, identify the categories that contribute the most to overall sales:
 <img src="https://github.com/user-attachments/assets/87732301-d549-49b7-8bc2-238aac5505ed" />
 </p>
 
+### 5. Data Segmentation
+
+Group the data based on a specific range, helping to understand the correlation between two measures.
+
+To do this I'll use measures, turning one of them into a dimension (categorization: I take one measure, and based on the range of this measure I am
+building a new category), and then aggregating the other one based on the new category.
+
+For example, segment products into cost ranges and count how many products fall into each segment:
+
+    WITH product_segments AS (
+    SELECT
+        product_name,
+        cost,
+        CASE WHEN cost < 100 THEN 'Below 100'
+             WHEN cost BETWEEN 100 AND 500 THEN '100-500'
+             WHEN cost BETWEEN 500 AND 1000 THEN '500-1000'
+             ELSE 'Above 1000'
+        END AS cost_range
+    FROM Gold.dim_products)
+    
+    SELECT
+        cost_range,
+        COUNT(product_name) total_products
+    FROM product_segments
+    GROUP BY cost_range
+    ORDER BY total_products DESC
+
+<p align="center">
+<img src="https://github.com/user-attachments/assets/cf48c770-1a7b-4a58-948f-752da9f3624d" />
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
