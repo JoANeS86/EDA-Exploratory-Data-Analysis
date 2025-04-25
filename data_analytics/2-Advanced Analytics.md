@@ -218,7 +218,7 @@ For example, segment products into cost ranges and count how many products fall 
              WHEN cost BETWEEN 100 AND 500 THEN '100-500'
              WHEN cost BETWEEN 500 AND 1000 THEN '500-1000'
              ELSE 'Above 1000'
-        END AS cost_range
+        END cost_range
     FROM Gold.dim_products)
     
     SELECT
@@ -232,18 +232,42 @@ For example, segment products into cost ranges and count how many products fall 
 <img src="https://github.com/user-attachments/assets/cf48c770-1a7b-4a58-948f-752da9f3624d" />
 </p>
 
+Another example:
 
+Group customers into three segments based on their spending behaviour:
 
+    -VIP: At least 12 months of history and spending more than 5000€.
+    -Regular: At least 12 months of history but spending 5000€ or less.
+    -New: Lifespan less than 12 months.
 
+And find the total number of customers by each group.
 
+    WITH customer_spending AS (
+    SELECT
+        c.customer_key,
+        SUM(s.sales_amount) AS total_spending,
+        MIN(order_date) AS first_order,
+        MAX(order_date) AS last_order,
+        DATEDIFF(MONTH, MIN(order_date), MAX(order_date)) lifespan
+    FROM Gold.fact_sales s LEFT JOIN Gold.dim_customers c
+    ON s.customer_key = c.customer_key
+    GROUP BY c.customer_key)
+    
+    SELECT
+        customer_segment,
+        COUNT(customer_key) total_customers
+    FROM (
+    SELECT
+        customer_key,
+        CASE WHEN lifespan >= 12 AND total_spending > 5000 THEN 'VIP'
+             WHEN lifespan >= 12 AND total_spending <= 5000 THEN 'Regular'
+             ELSE 'New'
+        END customer_segment
+    FROM customer_spending) A
+    GROUP BY customer_segment
+    ORDER BY total_customers DESC
 
-
-
-
-
-
-
-
-
-
+<p align="center">
+<img src="https://github.com/user-attachments/assets/73a665cf-72cc-4011-9d3e-3642079dcbc7" />
+</p>
 
