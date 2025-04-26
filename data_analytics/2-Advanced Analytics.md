@@ -271,3 +271,31 @@ And find the total number of customers by each group.
 <img src="https://github.com/user-attachments/assets/73a665cf-72cc-4011-9d3e-3642079dcbc7" />
 </p>
 
+### 6. Build Customer Report
+
+Customer Report
+
+Purpose: This report consolidates key customer metrics and behaviors.
+
+Highlights:
+
+    1. Gathers essential fields such as names, ages, and transaction details.
+    2. Segments customers into categories (VIP, Regular, New) and age groups.
+    3. Aggregates customer-level metrics:
+
+        - Total Orders
+        - Total Sales
+        - Total Quantity Purchased
+        - Total Products
+        - Lifespan (in months)
+
+    4. Calculates valuable KPIs:
+
+        - Recency (months since last order)
+        - Average Order Value
+        - Average Monthly Spend
+
+
+
+
+
